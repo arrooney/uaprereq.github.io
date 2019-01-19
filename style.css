@@ -1,0 +1,139 @@
+.mainHead{
+ 
+	background-color: black;
+ 	height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	background: url('DSC_0370.JPG') no-repeat center center fixed;
+        background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+        -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+        -moz-background-size: cover; /* optional for Firefox 3.6 */ 
+        -o-background-size: cover; /* for Opera 9.5 */
+        margin: 0; /* to remove the default white margin of body */
+        padding: 0; /* to remove the default white margin of body */
+        overflow: hidden;
+}
+
+h2{
+	font: courier;
+	color: orange;
+	text-align: justify;
+	font-size: 40px;
+}
+
+h1{
+	font: courier;
+	color: orange;
+	text-align: center;
+	font-size: 80px;
+}
+
+h3{
+	color: white;
+	text-align: left;
+}
+
+h4{
+	color: grey;
+	text-align: right;
+}
+
+h5{
+	color: orange;
+	text-align: center;
+	font-size: 40px;
+}
+
+ul{
+color:orange;
+font-size:25px;
+}
+
+p {
+    background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+    background: rgba(204, 204, 204, 0.5);
+	font-size: 25px;
+}
+
+a:link {
+	font: courier;
+	font-size: 30px;
+	text-decoration: none;
+	background-color: orange;
+}
+
+a:hover {
+	background-color: pink;
+}
+
+body{
+	background-color: black;
+}
+.projects{
+	background-color: black;
+ 	height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	background: url('20180803-MI-SEDS-CAN-SBX MIIST Imager Integation in Cleanroom23.JPG') no-repeat center center fixed;
+        background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+        -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+        -moz-background-size: cover; /* optional for Firefox 3.6 */ 
+        -o-background-size: cover; /* for Opera 9.5 */
+        margin: 0; /* to remove the default white margin of body */
+        padding: 0; /* to remove the default white margin of body */
+        overflow: hidden;
+}
+
+.climbing{
+	background-color: black;
+ 	height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	background: url('DSC_0968.JPG') no-repeat center center fixed;
+        background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+        -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+        -moz-background-size: cover; /* optional for Firefox 3.6 */ 
+        -o-background-size: cover; /* for Opera 9.5 */
+        margin: 0; /* to remove the default white margin of body */
+        padding: 0; /* to remove the default white margin of body */
+        overflow: hidden;
+}
+
+.skills{
+}
+
+.travel{
+	background-color: black;
+ 	height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	background: url('20170726_102239.jpg') no-repeat center center fixed;
+        background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+        -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+        -moz-background-size: cover; /* optional for Firefox 3.6 */ 
+        -o-background-size: cover; /* for Opera 9.5 */
+        margin: 0; /* to remove the default white margin of body */
+        padding: 0; /* to remove the default white margin of body */
+        overflow: hidden;
+}
+
+.btn {
+	border: none;
+	background-color: orange;
+	padding: 14px 28px;
+	font-size:16px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.btn:hover {background: #eee;}
+
+.ABSatInfo {color: orange;}
