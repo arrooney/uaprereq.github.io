@@ -9,7 +9,7 @@
 	<link href="app.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
 
-    <title>Tree Example</title>
+    <title>HACKATHON</title>
 
     <style>
 	
@@ -38,11 +38,47 @@
   </head>
 
   <body>
+<div class='wrapper'>
+<form id='nameForm'>
+<div class='form-uname'>
+    <lable id='nameLable' for='nameField'>Find your class:</lable>
+    <input id='nameField' type='text' maxlength='25'></input>
+</div>
+<div class='form-sub'>
+    <button id='subButton' type='button'>Go</button>
+</div>
+</form>
 
-<!-- load the d3.js library -->	
+<div>
+    <p id='result'></p></div>
+</div>
+
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 	
 <script>
+
+function getUserName() {
+var nameField = document.getElementById('nameField').value;
+var result = document.getElementById('result');
+console.log(nameField);
+}
+
+var subButton = document.getElementById('subButton');
+subButton.addEventListener('click', getUserName, false); 
+// if (nameField.length < 3) {
+//     result.textContent = 'Username must contain at least 3 characters';
+//     //alert('Username must contain at least 3 characters');
+// } else {
+//     result.textContent = 'Your username is: ' + nameField;
+//     //alert(nameField);
+// }
+// }
+
+
+
+// <!-- load the d3.js library -->	
+
 $.getJSON("data.json", function(json) {
     console.log(json);
 
@@ -63,6 +99,48 @@ var treeData = [
     ]}
 ];
 
+
+//treeData = json;
+
+selectionis = "ECE212";
+
+
+function find( selection ) {
+var i;
+
+for(i = 0; i<treeData.length; i++){
+	if(treeData[i].name == selection){
+		var select = i;
+	}else{
+		//console.log("bad selection");
+	}
+}
+return select;
+}
+
+// console.log(treeData[find(selectionis)].name);
+// console.log(treeData[find(selectionis)].children[0][0]);
+// console.log(treeData[find(selectionis)].children[0].length);
+// json[7].children[0][0] = ;
+//console.log(new1);
+
+//console.log(new1.name);
+// flag = 1;
+// while(flag){
+// 	var q;
+// 	for(q = 0; q < treeData[find(selectionis)].children[0].length; q++){
+// 		treeData[find(selectionis)].children[0][q].name = treeData[find(selectionis)].children[0][q];
+// 		try{
+// 			treeData[find(selectionis)].children[0][q].children = treeData[find(treeData[find(selectionis)].children[0][q])];
+// 		}
+// 		catch(TypeError){
+// 			console.log("/");
+// 		}
+// 	}
+// 	flag = 0;
+// }
+
+//var children = treeData.children;
 
 
 // ************** Generate the tree diagram	 *****************
@@ -193,6 +271,7 @@ function click(d) {
   update(d);
 }
 });
+
 
 </script>
 	
