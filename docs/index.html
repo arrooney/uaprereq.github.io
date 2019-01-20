@@ -82,37 +82,7 @@ subButton.addEventListener('click', getUserName, false);
 $.getJSON("data.json", function(json) {
     console.log(json);
 
-var treeData = [
-{"name": "ECE360", "children":
-    [
-    {"name": "ECE203", "children":
-        [
-        {"name": "ECE202", "children":
-            [
-            {"name": "MATH101"},
-            {"name": "MATH102"}
-            ]
-        },
-        {"name": "EE240"}
-        ]
-    },
-    {"name": "EE250"},
-    {"name": "ECE240", "children":
-        [
-        {"name": "ECE202", "children":
-            [
-            {"name": "MATH101"},
-            {"name": "MATH102"}
-            ]
-        },
-        {"name": "EE240"},
-        {"name": "MATH201"}
-        ]
-    },
-    {"name": "EE238"}
-    ]
-}
-];
+var treeData = [{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]}];
 //treeData = json;
 
 selectionis = "ECE212";
