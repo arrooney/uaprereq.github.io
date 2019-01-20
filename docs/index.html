@@ -45,35 +45,24 @@
 <script>
 $.getJSON("data.json", function(json) {
     console.log(json);
-var treeData = [
-  {
-    "name": "ECE599",
-    "children": [
-      {
-        "name": "ECE212",
-        "children": [
-          {
-            "name": "MATH100",
-          },
-          {
-            "name": "ECE210",
-          }, 
-          {
-          	"name": "MATH102",
-          }
-        ]
-      },
-      {
-        "name": "",
-      }
-    ]
 
-  },
-  {
-    "name": "top level 2",
-    "children":[]
-	}
+var treeData = [
+	{"name": "ECE360", "children":[
+    	{"name": "either","children": [
+    		{"name": "ECE203", "children":[
+    			{"name": "ECE202"},
+    			{"name": "EE240"}
+    		]},
+    		{"name": "EE250"}
+    	]},
+
+		{"name": "either", "children": [
+    		{"name": "ECE240"},
+    		{"name": "EE238"}
+    	]}
+    ]}
 ];
+
 
 
 // ************** Generate the tree diagram	 *****************
