@@ -59,7 +59,7 @@
 <script>
 
 function getUserName() {
-var nameField = document.getElementById('nameField').value;
+nameField = document.getElementById('nameField').value;
 var result = document.getElementById('result');
 console.log(nameField);
 }
@@ -102,6 +102,8 @@ for(i = 0; i<treeData.length; i++){
 }
 return select;
 }
+
+console.log(nameField);
 
 // console.log(treeData[find(selectionis)].name);
 // console.log(treeData[find(selectionis)].children[0][0]);
@@ -149,7 +151,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-root = treeData[0];
+root = treeData[find(nameField)];
 root.x0 = height / 2;
 root.y0 = 0;
   
