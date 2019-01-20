@@ -59,55 +59,54 @@
 <script>
 
 
-// nameField == "";
-// function getUserName() {
-// nameField = document.getElementById('nameField').value;
-// var result = document.getElementById('result');
-// console.log(nameField);
-// }
 
-// var subButton = document.getElementById('subButton');
-// subButton.addEventListener('click', getUserName, false);
+
+var subButton = document.getElementById('subButton');
+subButton.addEventListener('click', mainFunc);
 
 // Get the input box
-var textInput = document.getElementById('nameField');
+// var textInput = document.getElementById('nameField');
 
-// Init a timeout variable to be used below
-var timeout = null;
+// // Init a timeout variable to be used below
+// var timeout = null;
 
-// Listen for keystroke events
-textInput.onkeyup = function (e) {
+// // Listen for keystroke events
+// textInput.onkeyup = function (e) {
 
-    // Clear the timeout if it has already been set.
-    // This will prevent the previous task from executing
-    // if it has been less than <MILLISECONDS>
-    clearTimeout(timeout);
+//     // Clear the timeout if it has already been set.
+//     // This will prevent the previous task from executing
+//     // if it has been less than <MILLISECONDS>
+//     clearTimeout(timeout);
 
-    // Make a new timeout set to go off in 800ms
-    timeout = setTimeout(function () {
-        console.log('Input Value:', textInput.value);
-    }, 500);
-}; 
+//     // Make a new timeout set to go off in 800ms
+//     timeout = setTimeout(function () {
+//         console.log('Input Value:', textInput.value);
+//     }, 500);
+// }; 
+function mainFunc() {
+nameField = document.getElementById('nameField').value;
+var result = document.getElementById('result');
+console.log(nameField);
 
-var nameField = textInput.value;
+// var nameField = textInput.value;
 
-var typingTimer;                //timer identifier
-var doneTypingInterval = 7000;  //time in ms, 5 second for example
-var $input = $('#myInput');
+// var typingTimer;                //timer identifier
+// var doneTypingInterval = 7000;  //time in ms, 5 second for example
+// var $input = $('#myInput');
 
-//on keyup, start the countdown
-$input.on('keyup', function () {
-  clearTimeout(typingTimer);
-  typingTimer = setTimeout(doneTyping, doneTypingInterval);
-});
+// //on keyup, start the countdown
+// $input.on('keyup', function () {
+//   clearTimeout(typingTimer);
+//   typingTimer = setTimeout(doneTyping, doneTypingInterval);
+// });
 
 //on keydown, clear the countdown 
-$input.on('keydown', function () {
-  clearTimeout(typingTimer);
-});
+// $input.on('keydown', function () {
+//   clearTimeout(typingTimer);
+// });
 
 //user is "finished typing," do something
-function doneTyping () {
+
   //do something
 $.getJSON("data.json", function(json) {
     console.log(json);
@@ -182,7 +181,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 console.log(find(nameField));
-root = treeData[12][0];
+root = treeData[find(nameField)][0];
 root.x0 = height / 2;
 root.y0 = 0;
 console.log(nameField);
@@ -294,11 +293,13 @@ function click(d) {
 
 });
 }
-doneTyping();
+
 </script>
 	
  </body>
 </html>
+
+
 
 
 
