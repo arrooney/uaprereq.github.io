@@ -82,73 +82,41 @@ subButton.addEventListener('click', getUserName, false);
 $.getJSON("data.json", function(json) {
     console.log(json);
 
-// var treeData = [
-// 	{"name": "ECE360", "children":[
-//     	{"name": "either","children": [
-//     		{"name": "ECE203", "children":[
-//     			{"name": "ECE202"},
-//     			{"name": "EE240"}
-//     		]},
-//     		{"name": "EE250"}
-//     	]},
+var treeData = [
+	{"name": "ECE360", "children":[
+    	{"name": "either","children": [
+    		{"name": "ECE203", "children":[
+    			{"name": "ECE202"},
+    			{"name": "EE240"}
+    		]},
+    		{"name": "EE250"}
+    	]},
 
-// 		{"name": "either", "children": [
-//     		{"name": "ECE240"},
-//     		{"name": "EE238"}
-//     	]}
-//     ]}
-// ];
+		{"name": "either", "children": [
+    		{"name": "ECE240"},
+    		{"name": "EE238"}
+    	]}
+    ]}
+];
 
 
 //treeData = json;
 
-var treeData = [
-{"name": "ECE360", "children": 
-    [
-    {"name": "ECE203", "children": 
-        [
-        {"name": "ECE202", "children": 
-            [
-            {"name": "MATH101"},
-            {"name": "MATH102"}
-            ]
-        },
-        {"name": "EE240"}
-        ]
-    },
-    {"name": "EE250"},
-    {"name": "ECE240", "children": 
-        [
-        {"name": "ECE202", "children": 
-            [
-            {"name": "MATH101"},
-            {"name": "MATH102"}
-            ]
-        },
-        {"name": "EE240"},
-        {"name": "MATH201"}
-        ]
-    }
-    {"name": "EE238"}
-    ]
+selectionis = "ECE212";
+
+
+function find( selection ) {
+var i;
+
+for(i = 0; i<treeData.length; i++){
+	if(treeData[i].name == selection){
+		var select = i;
+	}else{
+		//console.log("bad selection");
+	}
 }
-];
-
-// selectionis = "ECE212";
-
-
-// function find( selection ) {
-// var i;
-
-// for(i = 0; i<treeData.length; i++){
-// 	if(treeData[i].name == selection){
-// 		var select = i;
-// 	}else{
-// 		//console.log("bad selection");
-// 	}
-// }
-// return select;
-// }
+return select;
+}
 
 // console.log(treeData[find(selectionis)].name);
 // console.log(treeData[find(selectionis)].children[0][0]);
