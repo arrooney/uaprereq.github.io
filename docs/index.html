@@ -1,221 +1,243 @@
-<!-- 
-UAlberta Prerequisite Scraper
-Authors: Andrew Rooney, Konrad Staniszewski
-Created at HackED 2019 in under 24 hours
-Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
--->
+<!-- http://bl.ocks.org/d3noob/8375092 -->
+
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
-      <script type="text/javascript" src="data.json"></script>
-      <link href="app.css" rel="stylesheet" type="text/css">
-      <meta charset="utf-8">
-      <title>HACKATHON</title>
-      <style>
-         .node {
-         cursor: pointer;
-         }
-         .node circle {
-         fill: #fff;
-         stroke: steelblue;
-         stroke-width: 3px;
-         }
-         .node text {
-         font: 12px sans-serif;
-         }
-         .link {
-         fill: none;
-         stroke: #ccc;
-         stroke-width: 2px;
-         }
-      </style>
-   </head>
-   <body>
-      <div class='wrapper'>
-         <form id='nameForm'>
-            <div class='form-uname'>
-               <lable id='nameLable' for='nameField'>Find your class:</lable>
-               <input id='nameField' type='text' maxlength='25'></input>
-            </div>
-            <div class='form-sub'>
-               <button id='subButton' type='button'>Go</button>
-            </div>
-         </form>
-         <div>
-            <p id='result'></p>
-         </div>
-      </div>
-      <script src="http://d3js.org/d3.v3.min.js"></script>
-      <script>
-         $.getJSON("data.json", function(json) {
-         console.log(json);
-         var treeData = json;
+  <head>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+   <script type="text/javascript" src="data.json"></script>
+   <link href="app.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
 
-         var subButton = document.getElementById('subButton');
-         subButton.addEventListener('click', mainFunc); 
-         function mainFunc() {
-         nameField = document.getElementById('nameField').value;
-         var result = document.getElementById('result');
-         console.log(nameField);
-         
+    <title>HACKATHON</title>
 
-         var treeData_ = [[{"name": "ECE201", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]}],[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]}],[{"name": "ECE209", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE209A", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE209B", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE210", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]}],[{"name": "ECE220", "children":[{"name": "ENCMP 100"}]}],[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]}],[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]}],[{"name": "ECE303", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE303A", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE303B", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE304", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"},{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE311", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"}]}],[{"name": "ECE312", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "consent of the Department"}]}],[{"name": "ECE315", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"},{"name": "CMPUT275"},{"name": "permission of the Instructor"}]}],[{"name": "ECE321", "children":[{"name": "ECE320"},{"name": "CMPE300"}]}],[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]}],[{"name": "ECE325", "children":[{"name": "CMPUT275"}]}],[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]}],[{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]}],[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE341", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"},{"name": "MATH309"},{"name": "311"}]}],[{"name": "ECE342", "children":[{"name": "MATH209"}]}],[{"name": "ECE342A", "children":[{"name": "MATH209"}]}],[{"name": "ECE342B", "children":[{"name": "MATH209"}]}],[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]}],[{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE380A", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE380B", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE401", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE402", "children":[{"name": "ECE303", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]},{"name": "EE350"}]}],[{"name": "ECE403", "children":[{"name": "ECE304", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"},{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]},{"name": "EE351"}]}],[{"name": "ECE405", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "consent of the Instructor"}]}],[{"name": "ECE406", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE407", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE408", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE409", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE410", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE412", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]}]}],[{"name": "ECE420", "children":[{"name": "CMPUT275 and 379"}]}],[{"name": "ECE421", "children":[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]},{"name": "CMPE320"},{"name": "ECE325", "children":[{"name": "CMPUT275"}]},{"name": "CMPUT301 and CMPUT379"}]}],[{"name": "ECE422", "children":[{"name": "CMPUT301"}]}],[{"name": "ECE430", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"}]}],[{"name": "ECE432", "children":[{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]},{"name": "EE332"}]}],[{"name": "ECE433", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]},{"name": "EE332"}]}],[{"name": "ECE434", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"}]}],[{"name": "ECE440", "children":[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE338"},{"name": "consent of Instructor"}]}],[{"name": "ECE442", "children":[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE338"},{"name": "consent of Instructor"}]}],[{"name": "ECE449", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE450", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE452", "children":[{"name": "consent of the Department"}]}],[{"name": "ECE455", "children":[{"name": "MATH201"},{"name": "PHYS230"}]}],[{"name": "ECE456", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE457", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE458", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"},{"name": "MATE201"},{"name": "PHYS244"},{"name": "MEC E 250"}]}],[{"name": "ECE460", "children":[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE357"},{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}]}],[{"name": "ECE464", "children":[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "ECE462"},{"name": "EE357"},{"name": "EE462"},{"name": "consent of the Department"}]}],[{"name": "ECE471", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "corequisite PHYS381"}]}],[{"name": "ECE472", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"},{"name": "consent of Instructor"}]}],[{"name": "ECE474", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"}]}],[{"name": "ECE475", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE476", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"}]}],[{"name": "ECE478", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"}]}],[{"name": "ECE485", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]},{"name": "EE387"},{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE390"}]}],[{"name": "ECE486", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]},{"name": "EE387"},{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE390"}]}],[{"name": "ECE487", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE490", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE491", "children":[{"name": "ECE490", "children":[{"name": "No Prereqs"}]},{"name": "EE400 in the preceding Fall term"}]}],[{"name": "ECE492", "children":[{"name": "ECE315", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"},{"name": "CMPUT275"},{"name": "permission of the Instructor"}]},{"name": "CMPE401"},{"name": "ECE410", "children":[{"name": "No Prereqs"}]},{"name": "CMPE480"}]}],[{"name": "ECE493", "children":[{"name": "ECE421", "children":[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]},{"name": "CMPE320"},{"name": "ECE325", "children":[{"name": "CMPUT275"}]},{"name": "CMPUT301 and CMPUT379"}]},{"name": "CMPE410"}]}],[{"name": "ECE494", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE495", "children":[{"name": "ECE494 in the preceding Fall Term"}]}],[{"name": "ECE502", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE511", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE512", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE522", "children":[{"name": "No Prereqs"}]}]];
-         console.log(treeData);
-         
-         selection = nameField[4];
-         
-         console.log(selection);
-         
-         function find( selection ) {
-         var i;
-         
-         for(i = 0; i<treeData.length; i++){
-            var select;
-            if(treeData[i].name == selection){
-               select= i;
-            }else{
-               console.log("Bad selection");
-            }
-         }
-         return select;
-         }
-         
-         var margin = {top: 20, right: 120, bottom: 20, left: 120},
-            width = 960 - margin.right - margin.left,
-            height = 500 - margin.top - margin.bottom;
-            
-         var i = 0,
-            duration = 750,
-            root;
-         
-         var tree = d3.layout.tree()
-            .size([height, width]);
-         
-         var diagonal = d3.svg.diagonal()
-            .projection(function(d) { return [d.y, d.x]; });
-         
-         var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.right + margin.left)
-            .attr("height", height + margin.top + margin.bottom)
-           .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-         console.log(find(nameField));
-         // take in the nameFeild from the search box...
-         root = treeData[find(nameField)];
-         root.x0 = height / 2;
-         root.y0 = 0;
-         console.log(nameField);
-         update(root);
-         // while(nameField == ""){
-         //    console.log(nameField);
-         // }
-         d3.select(self.frameElement).style("height", "500px");
-         
-         function update(source) {
-         
-           // Compute the new tree layout.
-           var nodes = tree.nodes(root).reverse(),
-              links = tree.links(nodes);
-         
-           // Normalize for fixed-depth.
-           nodes.forEach(function(d) { d.y = d.depth * 180; });
-         
-           // Update the nodes…
-           var node = svg.selectAll("g.node")
-              .data(nodes, function(d) { return d.id || (d.id = ++i); });
-         
-           // Enter any new nodes at the parent's previous position.
-           var nodeEnter = node.enter().append("g")
-              .attr("class", "node")
-              .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-              .on("click", click);
-         
-           nodeEnter.append("circle")
-              .attr("r", 1e-6)
-              .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-         
-           nodeEnter.append("text")
-              .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
-              .attr("dy", ".35em")
-              .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-              .text(function(d) { return d.name; })
-              .style("fill-opacity", 1e-6);
-         
-           // Transition nodes to their new position.
-           var nodeUpdate = node.transition()
-              .duration(duration)
-              .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-         
-           nodeUpdate.select("circle")
-              .attr("r", 10)
-              .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-         
-           nodeUpdate.select("text")
-              .style("fill-opacity", 1);
-         
-           // Transition exiting nodes to the parent's new position.
-           var nodeExit = node.exit().transition()
-              .duration(duration)
-              .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-              .remove();
-         
-           nodeExit.select("circle")
-              .attr("r", 1e-6);
-         
-           nodeExit.select("text")
-              .style("fill-opacity", 1e-6);
-         
-           // Update the links…
-           var link = svg.selectAll("path.link")
-              .data(links, function(d) { return d.target.id; });
-         
-           // Enter any new links at the parent's previous position.
-           link.enter().insert("path", "g")
-              .attr("class", "link")
-              .attr("d", function(d) {
-               var o = {x: source.x0, y: source.y0};
-               return diagonal({source: o, target: o});
-              });
-         
-           // Transition links to their new position.
-           link.transition()
-              .duration(duration)
-              .attr("d", diagonal);
-         
-           // Transition exiting nodes to the parent's new position.
-           link.exit().transition()
-              .duration(duration)
-              .attr("d", function(d) {
-               var o = {x: source.x, y: source.y};
-               return diagonal({source: o, target: o});
-              })
-              .remove();
-         
-           // Stash the old positions for transition.
-           nodes.forEach(function(d) {
-            d.x0 = d.x;
-            d.y0 = d.y;
-           });
-         }
-         
-         // Toggle children on click.
-         function click(d) {
-           if (d.children) {
-            d._children = d.children;
-            d.children = null;
-           } else {
-            d.children = d._children;
-            d._children = null;
-           }
-           update(d);
-         }
-         
-         
-        
-         }
-          });
-      </script>
-   </body>
+    <style>
+   
+   .node {
+      cursor: pointer;
+   }
+   .node circle {
+     fill: #fff;
+     stroke: steelblue;
+     stroke-width: 3px;
+   }
+   .node text {
+     font: 12px sans-serif;
+   }
+   .link {
+     fill: none;
+     stroke: #ccc;
+     stroke-width: 2px;
+   }
+   
+    </style>
+
+  </head>
+
+  <body>
+<div class='wrapper'>
+<form id='nameForm'>
+<div class='form-uname'>
+    <lable id='nameLable' for='nameField'>Find your class:</lable>
+    <input id='nameField' type='text' maxlength='25'></input>
+</div>
+<div class='form-sub'>
+    <button id='subButton' type='button'>Go</button>
+</div>
+</form>
+
+<div>
+    <p id='result'></p></div>
+</div>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+   
+<script>
+var subButton = document.getElementById('subButton');
+subButton.addEventListener('click', mainFunc);
+// Get the input box
+// var textInput = document.getElementById('nameField');
+// // Init a timeout variable to be used below
+// var timeout = null;
+// // Listen for keystroke events
+// textInput.onkeyup = function (e) {
+//     // Clear the timeout if it has already been set.
+//     // This will prevent the previous task from executing
+//     // if it has been less than <MILLISECONDS>
+//     clearTimeout(timeout);
+//     // Make a new timeout set to go off in 800ms
+//     timeout = setTimeout(function () {
+//         console.log('Input Value:', textInput.value);
+//     }, 500);
+// }; 
+function mainFunc() {
+nameField = document.getElementById('nameField').value;
+var result = document.getElementById('result');
+console.log(nameField);
+// var nameField = textInput.value;
+// var typingTimer;                //timer identifier
+// var doneTypingInterval = 7000;  //time in ms, 5 second for example
+// var $input = $('#myInput');
+// //on keyup, start the countdown
+// $input.on('keyup', function () {
+//   clearTimeout(typingTimer);
+//   typingTimer = setTimeout(doneTyping, doneTypingInterval);
+// });
+//on keydown, clear the countdown 
+// $input.on('keydown', function () {
+//   clearTimeout(typingTimer);
+// });
+//user is "finished typing," do something
+  //do something
+$.getJSON("data.json", function(json) {
+    console.log(json);
+var treeData = [[{"name": "ECE201", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]}],[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]}],[{"name": "ECE209", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE209A", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE209B", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE210", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]}],[{"name": "ECE220", "children":[{"name": "ENCMP 100"}]}],[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]}],[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]}],[{"name": "ECE303", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE303A", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE303B", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE304", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"},{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE311", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"}]}],[{"name": "ECE312", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "consent of the Department"}]}],[{"name": "ECE315", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"},{"name": "CMPUT275"},{"name": "permission of the Instructor"}]}],[{"name": "ECE321", "children":[{"name": "ECE320"},{"name": "CMPE300"}]}],[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]}],[{"name": "ECE325", "children":[{"name": "CMPUT275"}]}],[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]}],[{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]}],[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE341", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"},{"name": "MATH309"},{"name": "311"}]}],[{"name": "ECE342", "children":[{"name": "MATH209"}]}],[{"name": "ECE342A", "children":[{"name": "MATH209"}]}],[{"name": "ECE342B", "children":[{"name": "MATH209"}]}],[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]}],[{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE380A", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE380B", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}],[{"name": "ECE401", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE402", "children":[{"name": "ECE303", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]},{"name": "EE350"}]}],[{"name": "ECE403", "children":[{"name": "ECE304", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"},{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]},{"name": "EE351"}]}],[{"name": "ECE405", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "consent of the Instructor"}]}],[{"name": "ECE406", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE407", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE408", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE409", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE410", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE412", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]}]}],[{"name": "ECE420", "children":[{"name": "CMPUT275 and 379"}]}],[{"name": "ECE421", "children":[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]},{"name": "CMPE320"},{"name": "ECE325", "children":[{"name": "CMPUT275"}]},{"name": "CMPUT301 and CMPUT379"}]}],[{"name": "ECE422", "children":[{"name": "CMPUT301"}]}],[{"name": "ECE430", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"}]}],[{"name": "ECE432", "children":[{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]},{"name": "EE332"}]}],[{"name": "ECE433", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "ECE332", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"},{"name": "consent of Department"}]},{"name": "EE332"}]}],[{"name": "ECE434", "children":[{"name": "ECE330", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE330"}]}],[{"name": "ECE440", "children":[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE338"},{"name": "consent of Instructor"}]}],[{"name": "ECE442", "children":[{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE338"},{"name": "consent of Instructor"}]}],[{"name": "ECE449", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE450", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE452", "children":[{"name": "consent of the Department"}]}],[{"name": "ECE455", "children":[{"name": "MATH201"},{"name": "PHYS230"}]}],[{"name": "ECE456", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE457", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE458", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"},{"name": "MATE201"},{"name": "PHYS244"},{"name": "MEC E 250"}]}],[{"name": "ECE460", "children":[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE357"},{"name": "ECE340", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]}]}],[{"name": "ECE464", "children":[{"name": "ECE360", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"},{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "ECE462"},{"name": "EE357"},{"name": "EE462"},{"name": "consent of the Department"}]}],[{"name": "ECE471", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "corequisite PHYS381"}]}],[{"name": "ECE472", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"},{"name": "consent of Instructor"}]}],[{"name": "ECE474", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"}]}],[{"name": "ECE475", "children":[{"name": "ECE302", "children":[{"name": "ECE203", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"}]},{"name": "EE250"}]},{"name": "EE340"}]}],[{"name": "ECE476", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"},{"name": "PHYS381"}]}],[{"name": "ECE478", "children":[{"name": "ECE370", "children":[{"name": "MATH102"},{"name": "MATH209"},{"name": "PHYS230"}]},{"name": "EE315"}]}],[{"name": "ECE485", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]},{"name": "EE387"},{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE390"}]}],[{"name": "ECE486", "children":[{"name": "ECE342", "children":[{"name": "MATH209"}]},{"name": "EE387"},{"name": "ECE380", "children":[{"name": "ECE240", "children":[{"name": "ECE202", "children":[{"name": "MATH101"},{"name": "MATH102"}]},{"name": "EE240"},{"name": "MATH201"}]},{"name": "EE238"}]},{"name": "EE390"}]}],[{"name": "ECE487", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE490", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE491", "children":[{"name": "ECE490", "children":[{"name": "No Prereqs"}]},{"name": "EE400 in the preceding Fall term"}]}],[{"name": "ECE492", "children":[{"name": "ECE315", "children":[{"name": "ECE212", "children":[{"name": "ECE210", "children":[{"name": "No Prereqs"}]},{"name": "EE280"},{"name": "CMPUT329"}]},{"name": "EE380"},{"name": "CMPUT229"},{"name": "CMPUT275"},{"name": "permission of the Instructor"}]},{"name": "CMPE401"},{"name": "ECE410", "children":[{"name": "No Prereqs"}]},{"name": "CMPE480"}]}],[{"name": "ECE493", "children":[{"name": "ECE421", "children":[{"name": "ECE322", "children":[{"name": "ECE320"},{"name": "CMPE300"}]},{"name": "CMPE320"},{"name": "ECE325", "children":[{"name": "CMPUT275"}]},{"name": "CMPUT301 and CMPUT379"}]},{"name": "CMPE410"}]}],[{"name": "ECE494", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE495", "children":[{"name": "ECE494 in the preceding Fall Term"}]}],[{"name": "ECE502", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE511", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE512", "children":[{"name": "No Prereqs"}]}],[{"name": "ECE522", "children":[{"name": "No Prereqs"}]}]];
+console.log(treeData);
+// var treeData = [
+//    {"name": "ECE360", "children":[
+//       {"name": "either","children": [
+//          {"name": "ECE203", "children":[
+//             {"name": "ECE202"},
+//             {"name": "EE240"}
+//          ]},
+//          {"name": "EE250"}
+//       ]},
+//       {"name": "either", "children": [
+//          {"name": "ECE240"},
+//          {"name": "EE238"}
+//       ]}
+//     ]}
+// ];
+//var treeData = json;
+// while(nameField == "undefined"){
+//    consol.log(nameField);
+// }
+//treeData = json;
+selection = nameField[4];
+console.log(selection);
+function find( selection ) {
+var i;
+for(i = 0; i<treeData.length; i++){
+   var select;
+   if(treeData[i][0].name == selection){
+      select= i;
+   }else{
+      console.log("bad selection");
+   }
+}
+return select;
+}
+//while(true){
+var margin = {top: 20, right: 120, bottom: 20, left: 120},
+   width = 960 - margin.right - margin.left,
+   height = 500 - margin.top - margin.bottom;
+   
+var i = 0,
+   duration = 750,
+   root;
+var tree = d3.layout.tree()
+   .size([height, width]);
+var diagonal = d3.svg.diagonal()
+   .projection(function(d) { return [d.y, d.x]; });
+var svg = d3.select("body").append("svg")
+   .attr("width", width + margin.right + margin.left)
+   .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+console.log(find(nameField));
+root = treeData[find(nameField)][0];
+root.x0 = height / 2;
+root.y0 = 0;
+console.log(nameField);
+update(root);
+// while(nameField == ""){
+//    console.log(nameField);
+// }
+d3.select(self.frameElement).style("height", "500px");
+function update(source) {
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+     links = tree.links(nodes);
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+     .data(nodes, function(d) { return d.id || (d.id = ++i); });
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+     .attr("class", "node")
+     .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+     .on("click", click);
+  nodeEnter.append("circle")
+     .attr("r", 1e-6)
+     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  nodeEnter.append("text")
+     .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+     .attr("dy", ".35em")
+     .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+     .text(function(d) { return d.name; })
+     .style("fill-opacity", 1e-6);
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+     .duration(duration)
+     .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+  nodeUpdate.select("circle")
+     .attr("r", 10)
+     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  nodeUpdate.select("text")
+     .style("fill-opacity", 1);
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+     .duration(duration)
+     .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+     .remove();
+  nodeExit.select("circle")
+     .attr("r", 1e-6);
+  nodeExit.select("text")
+     .style("fill-opacity", 1e-6);
+  // Update the links…
+  var link = svg.selectAll("path.link")
+     .data(links, function(d) { return d.target.id; });
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+     .attr("class", "link")
+     .attr("d", function(d) {
+      var o = {x: source.x0, y: source.y0};
+      return diagonal({source: o, target: o});
+     });
+  // Transition links to their new position.
+  link.transition()
+     .duration(duration)
+     .attr("d", diagonal);
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+     .duration(duration)
+     .attr("d", function(d) {
+      var o = {x: source.x, y: source.y};
+      return diagonal({source: o, target: o});
+     })
+     .remove();
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+   d.x0 = d.x;
+   d.y0 = d.y;
+  });
+}
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+   d._children = d.children;
+   d.children = null;
+  } else {
+   d.children = d._children;
+   d._children = null;
+  }
+  update(d);
+}
+});
+}
+</script>
+   
+ </body>
 </html>
