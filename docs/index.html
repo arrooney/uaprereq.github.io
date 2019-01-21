@@ -72,7 +72,7 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
          
          for(i = 0; i<treeData.length; i++){
             var select;
-            if(treeData[i][0].name == selection){
+            if(treeData[i].name == selection){
                select= i;
             }else{
                console.log("Bad selection");
@@ -102,7 +102,7 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
          console.log(find(nameField));
          // take in the nameFeild from the search box...
-         root = treeData[find(nameField)][0];
+         root = treeData[find(nameField)];
          root.x0 = height / 2;
          root.y0 = 0;
          console.log(nameField);
