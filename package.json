@@ -1,14 +1,27 @@
 {
   "name": "hacked",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a website to host our HACKed 2019 project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arrooney/uaprereq.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arrooney/uaprereq.github.io/issues"
+  },
+  "homepage": "https://github.com/arrooney/uaprereq.github.io#readme"
 }
