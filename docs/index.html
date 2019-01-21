@@ -36,6 +36,9 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
       </style>
    </head>
    <body>
+      <div id="title">
+         <h1>Uiversity of Alberta Prerequisites</h1>
+      </div>
       <div class='wrapper'>
          <form id='nameForm'>
             <div class='form-uname'>
@@ -50,6 +53,7 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
             <p id='result'></p>
          </div>
       </div>
+      <div id="drawGraph">
       <script src="http://d3js.org/d3.v3.min.js"></script>
       <script>
          var subButton = document.getElementById('subButton');
@@ -141,7 +145,9 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
          	  .attr("dy", ".35em")
          	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
          	  .text(function(d) { return d.name; })
-         	  .style("fill-opacity", 1e-6);
+         	  .style("fill-opacity", 1e-6)
+              .style("fill", "black")
+              .style("font-size", 20);
          
            // Transition nodes to their new position.
            var nodeUpdate = node.transition()
@@ -177,7 +183,8 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
          	  .attr("d", function(d) {
          		var o = {x: source.x0, y: source.y0};
          		return diagonal({source: o, target: o});
-         	  });
+         	  })
+              .style("stroke", "PeachPuff");
          
            // Transition links to their new position.
            link.transition()
@@ -217,5 +224,6 @@ Thanks to poster at Animation API from: http://bl.ocks.org/d3noob/8375092
 
          
       </script>
+   </div>
    </body>
 </html>
