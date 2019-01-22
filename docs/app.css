@@ -2,6 +2,9 @@ body{
 	background-color: #70ECB6;
 }
 
-.title{
-	text-color: orange;
+h2{
+	font: courier;
+	color: black;
+	text-align: justify;
+	font-size: 15px;
 }
