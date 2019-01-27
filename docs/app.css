@@ -1,11 +1,9 @@
 body{
 	background-color: #84CEEB;
 }
-/*
-h2{
-	font: courier;
-	color: black;
-	text-align: justify;
-	font-size: 15px;
+h1 {
+    text-align: center;
 }
-*/
+h2 {
+    text-align: center;
+}
